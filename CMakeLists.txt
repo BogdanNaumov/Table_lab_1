@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8) #Проверка версии CMake.
 
-set(PROJECT_NAME mp2-lab5-polinoms) #Создаем обычную локальную переменную с именем проекта
+set(PROJECT_NAME mp2-lab5-polinoms) #Создаем обычную локальную переменную с и менем проекта
 project(${PROJECT_NAME}) # Название проекта
 
 set(polinom polinom) #Переменная с именем приложения
