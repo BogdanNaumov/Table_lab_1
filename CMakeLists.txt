@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8) #Проверка версии CMake.
 
 
-set(PROJECT_NAME mp2-lab5-polinoms) #Создаем обычную локальную переменную с и менем проекта
+set(PROJECT_NAME Table_lab_1) #Создаем обычную локальную переменную с и менем проекта
 project(${PROJECT_NAME}) # Название проекта
 
 set(polinom polinom) #Переменная с именем приложения
@@ -13,6 +13,12 @@ set(Base_Table Base_Table)
 set(Table_arr Table_arr)
 
 set(UnorderedTable_arr UnorderedTable_arr)
+
+set(postfix postfix)
+set(postfixlib postfixlib)
+
+set(stack stack)
+set(stacklib stacklib)
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE) #Создается переменная CMAKE_CONFIGURATION_TYPES со значением "Debug;Release" и меткой/разделом Configs, переменная сохраниется в специальном файле доступном из всех файлов,
 if(NOT CMAKE_BUILD_TYPE) # проверка имеющихся у компилятора вариантов сборки
@@ -28,6 +34,16 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/polinomlib) #Добавляем 
 #${CMAKE_CURRENT_SOURCE_DIR} - стандартная переменная с адресом рабочей директории
 add_subdirectory(polinom) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
 add_subdirectory(polinomlib)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/postfixlib) #Добавляем директорию "${CMAKE_CURRENT_SOURCE_DIR}/vectorlib" в дополняемые каталоги включаемых файлов
+#${CMAKE_CURRENT_SOURCE_DIR} - стандартная переменная с адресом рабочей директории
+add_subdirectory(postfix) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
+add_subdirectory(postfixlib)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/stacklib) #Добавляем директорию "${CMAKE_CURRENT_SOURCE_DIR}/vectorlib" в дополняемые каталоги включаемых файлов
+#${CMAKE_CURRENT_SOURCE_DIR} - стандартная переменная с адресом рабочей директории
+add_subdirectory(stack) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
+add_subdirectory(stacklib)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Base_Table)
 add_subdirectory(Base_Table)
