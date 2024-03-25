@@ -1,11 +1,17 @@
 cmake_minimum_required(VERSION 2.8) #Проверка версии CMake.
 
-set(PROJECT_NAME mp2-lab5-polinoms) #Создаем обычную локальную переменную с именем проекта
+set(PROJECT_NAME Table_lab_1) #Создаем обычную локальную переменную с именем проекта
 project(${PROJECT_NAME}) # Название проекта
 
 set(polinom polinom) #Переменная с именем приложения
 set(polinomlib polinomlib) #Переменная с именем библиотеки
 set(listlib listlib)
+
+set(Base_Table Base_Table)
+
+set(Table_arr Table_arr)
+
+set(UnorderedTable_arr UnorderedTable_arr)
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE) #Создается переменная CMAKE_CONFIGURATION_TYPES со значением "Debug;Release" и меткой/разделом Configs, переменная сохраниется в специальном файле доступном из всех файлов,
 if(NOT CMAKE_BUILD_TYPE) # проверка имеющихся у компилятора вариантов сборки
@@ -22,7 +28,14 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/polinomlib) #Добавляем 
 add_subdirectory(polinom) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
 add_subdirectory(polinomlib)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Base_Table)
+add_subdirectory(Base_Table)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Table_arr)
+add_subdirectory(Table_arr)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/UnorderedTable_arr)
+add_subdirectory(UnorderedTable_arr)
 
 #file(GLOB hdrs "*.h*") #Добавляем в переменную hdrs все файлы с расширением .h
 #file(GLOB srcs "*.cpp") #Добавляем в переменную srcs все файлы с расширением .cpp
