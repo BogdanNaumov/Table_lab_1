@@ -46,12 +46,18 @@ public:
     bool IsFull() const override { return size() >= TabMaxSize; }
 
     void Delete(TKey key) override {
-        for (size_t i = 0; i < data.size(); i++)
-            if (data[i].key == key) {
-                data.erase(data.begin() + i);
-                count--;
-                return;
+        auto it = find_if(data.begin(), data.end(), [key](const TabRec& entry) { return entry.key == key; });
+        if (it != data.end()) {
+            // Удаление элемента из вектора
+            data.erase(it);
+
+            // Обновление индексов ключей
+            for (auto& entry : data) {
+                if (entry.key > key) {
+                    entry.key--; // Сдвиг ключей
+                }
             }
+        }
     }
 
     int Reset() override {
@@ -67,11 +73,12 @@ public:
     }
 
     TKey GetKey() const override { return data[currentIndex].key; }
+    TValue GetValuePtr() const override { return *data[currentIndex].value; }
 
     ostream& Print(ostream& os) const override {
-        os << "Your table:" << endl;
+        os << "Упорядоченная таблица на векторе:" << endl;
         for (size_t i = 0; i < data.size(); ++i) {
-            os << " Key: " << data[i].key << " Value: " << *data[i].value << endl;
+            os << " Ключь: " << data[i].key << " Значение: " << *data[i].value << endl;
         }
         return os;
     }
