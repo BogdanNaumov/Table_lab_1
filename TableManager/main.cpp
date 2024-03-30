@@ -9,8 +9,10 @@ int main() {
     TableManager<int, TPolinom> manager;
 
    
-    SortArrayTable<int, TPolinom> table1;
+    UnorderedTable_mas<int, TPolinom> table1;
+    SortArrayTable<int, TPolinom> table2;
     manager.AddTable(&table1);
+    manager.AddTable(&table2);
 
     
     TPolinom p1, p2,p3;
@@ -27,19 +29,21 @@ int main() {
     p3.AddMonom(a);
     p3.AddMonom(b);
     
-    manager.InsertElement(0, 1, p1);
-    manager.InsertElement(0, 2, p2);
-    manager.InsertElement(0, 3, p3);
+    for (int i = 0; i < 2; i++) 
+    {
+        manager.InsertElement(i, 1, p1);
+        manager.InsertElement(i, 2, p2);
+        manager.InsertElement(i, 3, p3);
+    }
+    
 
     
-    manager.PrintTable(0);
-    manager.DeleteElement(0, 2);
+    manager.PrintTable(1);
+    manager.DeleteElement(1, 5);
 
-    manager.PrintTable(0);
-    manager.IsFullElement(0);
+    manager.PrintTable(1);
+    manager.IsFullElement(1);
 
-    manager.ResetElement(0);
-    manager.PrintTable(0);
 
     return 0;
 }

@@ -54,7 +54,7 @@ public:
     void IsFullElement(int tableIndex) 
     {
         if (tableIndex >= 0 && tableIndex < tables.size())
-            if (tables[tableIndex]->IsFull() == 0)cout << "в таблице ещё есть место";
+            if (tables[tableIndex]->IsFull() == 0)cout << "в таблице ещё есть место" << endl;
             else cout << "таблица полная";
         else
             cout << "Error: Table index out of range" << endl;

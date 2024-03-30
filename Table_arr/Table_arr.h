@@ -35,12 +35,21 @@ public:
     }
 
     void Insert(TKey key, TValue value) override {
+        auto it = std::lower_bound(data.begin(), data.end(), key,
+            [](const typename SortArrayTable::TabRec& entry, const TKey& searchKey) {
+                return entry.key < searchKey;
+            });
+
+        // Проверка наличия элемента с таким ключом
+        if (it != data.end() && it->key == key) {
+            std::cout << "Element with key " << key << " already exists." << std::endl;
+            return;
+        }
+
+        // Вставка нового элемента
         TValue* newValue = new TValue(value);
-        TabRec tab = { key, newValue };
-        data.push_back(tab);
-        count++;
-        sort(data.begin(), data.end(),
-            [](const TabRec& a, const TabRec& b) { return a.key < b.key; });
+        data.insert(it, { key, newValue });
+        this->count++;
     }
 
     bool IsFull() const override { return size() >= TabMaxSize; }
@@ -58,7 +67,11 @@ public:
                 }
             }
         }
+        else {
+            std::cout << "Element with key " << key << " not found." << std::endl;
+        }
     }
+
 
     int Reset() override {
         currentIndex = 0;
