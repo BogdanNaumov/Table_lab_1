@@ -1,8 +1,11 @@
 #pragma once
 #include "THeadList.h"
 #include "TMonom.h"
+#include "TList.h"
+#include "TPolinom.h"
 #include <string>
 #include <vector>
+using namespace std;
 
 const int nonDisplayedZeros = 4; // Количество неотображаемых нулей при выводе коэффициента полинома
 								 // Кол-во символов после запятой = 6 - nonDisplayedZeros
@@ -251,4 +254,27 @@ string TPolinom::ToString()
 	}
 
 	return result;
+}
+
+ostream& operator<<(ostream& os, TPolinom& polinom)
+{
+	string result = "";
+	string tmp;
+	string coef;
+	int degX, degY, degZ, ind;
+	polinom.monoms.Reset();
+	for (int i = 0; i < polinom.monoms.GetLength(); i++) {
+		ind = polinom.monoms.GetCurrentItem().GetIndex();
+		degX = ind / 100;
+		degY = (ind / 10) % 10;
+		degZ = ind % 10;
+		coef = std::to_string(polinom.monoms.GetCurrentItem().GetCoef());
+		for (int j = 0; j <nonDisplayedZeros; j++) coef.pop_back();
+		tmp = coef + " * x^" + std::to_string(degX) + " y^" + std::to_string(degY) + " z^" + std::to_string(degZ);
+		result += tmp;
+		if (polinom.monoms.GetLength() - i > 1) result += " + ";
+		polinom.monoms.GoNext();
+	}
+	os << result;
+	return os;
 }

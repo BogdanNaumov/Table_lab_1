@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include "..\\polinomlib\Tpolinom.h"
 
 using namespace std;
 
@@ -29,11 +30,5 @@ public:
     virtual int GoNext(void) = 0;
     virtual TKey GetKey(void) const = 0;
     virtual TValue GetValuePtr(void) const = 0;
-    friend ostream& operator<<(ostream& os, Table& tab) {
-        cout << "Ваша таблица" << endl;
-        for (tab.Reset(); !tab.IsTabEnded(); tab.GoNext()) {
-            os << " Ключ: " << tab.GetKey() << " Значение: " << *tab.GetValuePtr() << endl;
-        }
-        return os;
-    }
+    virtual ostream& Print(ostream& os) const = 0;
 };

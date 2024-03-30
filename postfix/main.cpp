@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "..\postfixlib\MyExpression.h"
+#include "..\\postfixlib\MyExpression.h"
 
 int main()
 {

@@ -14,6 +14,8 @@ set(Table_arr Table_arr)
 
 set(UnorderedTable_arr UnorderedTable_arr)
 
+set(TableManager TableManager)
+
 set(postfix postfix)
 set(postfixlib postfixlib)
 
@@ -47,6 +49,9 @@ add_subdirectory(stacklib)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Base_Table)
 add_subdirectory(Base_Table)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/TableManager)
+add_subdirectory(TableManager)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Table_arr)
 add_subdirectory(Table_arr)

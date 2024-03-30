@@ -7,7 +7,7 @@
 #include <cctype>
 #include <map>
 #include <vector>
-#include "MyStack.h"
+#include "..\\stacklib\MyStack.cpp"
 using namespace std;
 
 class TArithmeticExpression

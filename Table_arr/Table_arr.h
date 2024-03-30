@@ -1,13 +1,14 @@
 #pragma once
-#include <Base_Table.h>
+#include "Base_Table.h"
 
 #include <algorithm>
 #include <iostream>
 #include <locale>
 #include <string>
+using namespace std;
 
 template <typename TKey, typename TValue>
-class SortArrayTable : public Table<TKey, TValue> {
+class SortArrayTable : public Base_Table<TKey, TValue> {
 private:
     size_t currentIndex;
     struct TabRec {
@@ -67,5 +68,16 @@ public:
 
     TKey GetKey() const override { return data[currentIndex].key; }
 
-    TValue GetValuePtr() const override { return *data[currentIndex].value; }
+    ostream& Print(ostream& os) const override {
+        os << "Your table:" << endl;
+        for (size_t i = 0; i < data.size(); ++i) {
+            os << " Key: " << data[i].key << " Value: " << *data[i].value << endl;
+        }
+        return os;
+    }
 };
+
+template <typename TKey, typename TValue>
+ostream& operator<<(ostream& os, const SortArrayTable<TKey, TValue>& table) {
+    return table.Print(os);
+}

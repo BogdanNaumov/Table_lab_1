@@ -19,27 +19,27 @@ int main()
 	p2.AddMonom(e);
 
 	p1.AddMonom(a);
-	cout << p1.ToString() << endl;
+	cout << p1 << endl;
 	cout << "_________________________________________________" << endl;
 
 	p1.AddMonom(b);
-	cout << "p1.AddMonom(b(2.5, 1, 3, 3)):" << endl << p1.ToString() << endl;
+	cout << "p1.AddMonom(b(2.5, 1, 3, 3)):" << endl << p1 << endl;
 	cout << "_________________________________________________" << endl;
 
 	p1.MultMonom(c);
-	cout << "p1.MultMonom(c(3.4, 2, 4, 4)):" << endl << p1.ToString() << endl;
+	cout << "p1.MultMonom(c(3.4, 2, 4, 4)):" << endl << p1 << endl;
 	cout << "_________________________________________________" << endl;
 
 	
 	string str;
 
-	cout << "TPolinom p2(str):" << endl << p2.ToString() << endl;
+	cout << "TPolinom p2(str):" << endl << p2 << endl;
 	cout << "_________________________________________________" << endl;
 
-	cout<< p1.ToString() << endl;
-	cout << p2.ToString() << endl;
+	cout<< p1 << endl;
+	cout << p2 << endl;
 	p1.AddPolinom(p2);
-	cout << "p1.AddPolinom(p2):" << endl << p1.ToString() << endl;
+	cout << "p1.AddPolinom(p2):" << endl << p1 << endl;
 
 
 
