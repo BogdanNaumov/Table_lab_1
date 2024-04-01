@@ -12,9 +12,11 @@ int main() {
     UnorderedTable_mas<int, TPolinom> table1;
     SortArrayTable<int, TPolinom> table2;
     AVL_Tree<int, TPolinom> table3;
+    ProbingHashTable<int, TPolinom>table4;
     manager.AddTable(&table1);
     manager.AddTable(&table2);
     manager.AddTable(&table3);
+    manager.AddTable(&table4);
 
     
     TPolinom p1, p2,p3,p4;
@@ -33,9 +35,9 @@ int main() {
     p4.AddMonom(a);
     p4.AddMonom(e);
     
-    for (int i = 0; i < 3; i++) 
+    for (int i = 0; i < 4; i++) 
     {
-        manager.InsertElement(i, 1, p1);
+        manager.InsertElement(i, 2, p1);
         manager.InsertElement(i, 2, p2);
         manager.InsertElement(i, 3, p3);
         manager.InsertElement(i, 4, p4);
@@ -43,11 +45,11 @@ int main() {
     
 
     
-    manager.PrintTable(2);
-    manager.DeleteElement(2, 3);
+    manager.PrintTable(3);
+    manager.DeleteElement(3, 3);
 
-    manager.PrintTable(2);
-    manager.IsFullElement(2);
+    manager.PrintTable(3);
+    manager.IsFullElement(3);
 
 
     return 0;

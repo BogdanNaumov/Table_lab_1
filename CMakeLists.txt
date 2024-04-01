@@ -14,8 +14,6 @@ set(UnorderedTable_list UnorderedTable_list)
 
 set(Three_avl Three_avl)
 
-set(Three_rb Three_rb)
-
 set(hesh_1 hesh_1)
 
 set(hesh_2 hesh_2)
@@ -65,9 +63,6 @@ add_subdirectory(hesh_2)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Three_avl)
 add_subdirectory(Three_avl)
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Three_rb)
-add_subdirectory(Three_rb)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Base_Table)
 add_subdirectory(Base_Table)

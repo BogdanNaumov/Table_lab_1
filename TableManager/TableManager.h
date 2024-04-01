@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include"..\\Three_avl\Three_avl.h"
+#include"..\\hesh_1\hesh_1.h"
 #include"..\\UnorderedTable_arr\UnorderedTable_arr.h"
 #include "..\\Table_arr\Table_arr.h"
 #include "..\\Base_Table\Base_Table.h"
