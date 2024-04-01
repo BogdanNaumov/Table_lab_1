@@ -10,6 +10,10 @@ set(listlib listlib)
 
 set(Base_Table Base_Table)
 
+set(Three_avl Three_avl)
+
+set(hesh_1 hesh_1)
+
 set(Table_arr Table_arr)
 
 set(UnorderedTable_arr UnorderedTable_arr)
@@ -46,6 +50,12 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/stacklib) #Добавляем д
 #${CMAKE_CURRENT_SOURCE_DIR} - стандартная переменная с адресом рабочей директории
 add_subdirectory(stack) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
 add_subdirectory(stacklib)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/hesh_1)
+add_subdirectory(hesh_1)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Three_avl)
+add_subdirectory(Three_avl)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Base_Table)
 add_subdirectory(Base_Table)

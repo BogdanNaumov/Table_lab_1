@@ -35,14 +35,13 @@ public:
     }
 
     void Insert(TKey key, TValue value) override {
-        auto it = std::lower_bound(data.begin(), data.end(), key,
-            [](const typename SortArrayTable::TabRec& entry, const TKey& searchKey) {
+        auto it = lower_bound(data.begin(), data.end(), key, [](const typename SortArrayTable::TabRec& entry, const TKey& searchKey) {
                 return entry.key < searchKey;
             });
 
         // Проверка наличия элемента с таким ключом
         if (it != data.end() && it->key == key) {
-            std::cout << "Element with key " << key << " already exists." << std::endl;
+            cout << "Element with key " << key << " already exists." << endl;
             return;
         }
 
@@ -68,7 +67,7 @@ public:
             }
         }
         else {
-            std::cout << "Element with key " << key << " not found." << std::endl;
+            cout << "Element with key " << key << " not found." << endl;
         }
     }
 
@@ -91,7 +90,7 @@ public:
     ostream& Print(ostream& os) const override {
         os << "Упорядоченная таблица на векторе:" << endl;
         for (size_t i = 0; i < data.size(); ++i) {
-            os << " Ключь: " << data[i].key << " Значение: " << *data[i].value << endl;
+            os << " Ключ: " << data[i].key << " Значение: " << *data[i].value << endl;
         }
         return os;
     }
