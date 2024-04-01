@@ -17,7 +17,7 @@ public:
 	THeadList<TMonom> monoms;
 	void Parse(string str);
 	TPolinom();
-	TPolinom(TPolinom& other);
+	TPolinom(const TPolinom& other);
 	TPolinom(string str);
 	TPolinom& operator=(TPolinom& other); // присваивание
 	TPolinom& operator+(TPolinom& q); // сложение полиномов
@@ -68,7 +68,7 @@ TPolinom::TPolinom() :THeadList<TMonom>::THeadList()
 
 }
 
-TPolinom::TPolinom(TPolinom& other)
+TPolinom::TPolinom(const TPolinom& other)
 {
 	monoms = other.monoms;
 }
