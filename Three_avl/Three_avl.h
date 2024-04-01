@@ -17,7 +17,6 @@ private:
     };
 
     Node* root;
-    vector<pair<TKey, TValue>> data; // Вектор для хранения данных
 
     int height(Node* node) {
         if (node == nullptr)
@@ -188,52 +187,45 @@ public:
 
     void Insert(TKey key, TValue value) override {
         root = insert(root, key, value);
-        data.push_back(make_pair(key, value)); // Добавляем пару ключ-значение в вектор
     }
 
     void Delete(TKey key) override {
         root = deleteNode(root, key);
-        // Также нужно удалить соответствующую пару из вектора
-        auto it = find_if(data.begin(), data.end(), [key](const auto& pair) { return pair.first == key; });
-        if (it != data.end())
-            data.erase(it);
+    }
+
+    int IsTabEnded(void) const override {
+        return root == nullptr;
+    }
+    int GoNext(void) override {
+        return 1;
     }
 
     int Reset(void) override {
         destroyTree(root);
         root = nullptr;
-        data.clear(); // Очищаем вектор
         return 0;
     }
 
-    int IsTabEnded(void) const override {
-        return currentIndex >= data.size();
-    }
-
-    int GoNext(void) override {
-        currentIndex++;
-        return currentIndex;
-    }
-
     TKey GetKey(void) const override {
-        return data[currentIndex].first;
+        return TKey();
     }
 
     TValue GetValuePtr(void) const override {
-        return data[currentIndex].second;
+        return TValue();
     }
 
     ostream& Print(ostream& os) const override {
-        os << "Авл дерево:" << endl;
-        for (size_t i = 0; i < data.size(); ++i) {
-            os << " Ключ: " << data[i].first << " Значение: ";
-            os << static_cast<ostream&>(data[i].second); // Приведение типа TPolinom к ostream
-            os << endl;
-        }
+        PrintInOrder(root, os);
         return os;
     }
 
-
+    void PrintInOrder(Node* node, ostream& os) const {
+        if (node != nullptr) {
+            PrintInOrder(node->left, os);
+            os << " Ключ: " << node->key << " Значение: " << node->value << endl;
+            PrintInOrder(node->right, os);
+        }
+    }
 
     ~AVL_Tree() {
         destroyTree(root);
