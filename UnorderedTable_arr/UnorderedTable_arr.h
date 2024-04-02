@@ -42,14 +42,22 @@ public:
     }
 
     void Delete(TKey key) override {
-        auto it = std::find_if(data.begin(), data.end(), [key](const recording& entry) { return entry.key == key; });
-        if (it != data.end()) { 
-            delete it->value; 
-            data.erase(it); 
+        bool found = false;
+        size_t i = 0;
+        for (; i < data.size(); ++i) {
+            if (data[i].key == key) {
+                found = true;
+                delete data[i].value;
+                break;
+            }
+        }
+
+        if (found) {
+            data.erase(data.begin() + i);
             count--;
         }
         else {
-            std::cout << "Element with key " << key << " not found." << std::endl;
+            throw invalid_argument("Elements is not found");
         }
     }
 

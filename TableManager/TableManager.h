@@ -1,68 +1,72 @@
 #include <iostream>
 #include <vector>
-#include"..\\Three_avl\Three_avl.h"
-#include"..\\hesh_1\hesh_1.h"
-#include"..\\hesh_2\hesh_2.h"
-#include"..\\UnorderedTable_arr\UnorderedTable_arr.h"
+#include "..\\Three_avl\Three_avl.h"
+#include "..\\hesh_1\hesh_1.h"
+#include "..\\hesh_2\hesh_2.h"
+#include "..\\UnorderedTable_arr\UnorderedTable_arr.h"
 #include "..\\Table_arr\Table_arr.h"
 #include "..\\Base_Table\Base_Table.h"
 #include "..\\polinomlib\TMonom.h"
 #include "..\\polinomlib\TPolinom.h"
+#include "..\\UnorderedTable_list\UnorderedTable_list.h"
+
 using namespace std;
 
-// Менеджер таблиц
 template <typename TKey, typename TValue>
 class TableManager {
 private:
-   vector<Base_Table<TKey, TValue>*> tables;
+    vector<Base_Table<TKey, TValue>*> tables;
 
 public:
-    // Добавить таблицу в менеджер
     void AddTable(Base_Table<TKey, TValue>* table) {
         tables.push_back(table);
     }
 
-    // Вставить элемент в указанную таблицу
-    void InsertElement(int tableIndex, TKey key, TValue value) {
-        if (tableIndex >= 0 && tableIndex < tables.size())
-            tables[tableIndex]->Insert(key, value);
-        else
-            cout << "Error: Table index out of range" << endl;
+    void InsertElement(TKey key, TValue value) {
+        for (auto table : tables) {
+            table->Insert(key, value);
+        }
     }
 
-    // Удалить элемент в указанную таблицу
-    void DeleteElement(int tableIndex, TKey key) {
-        if (tableIndex >= 0 && tableIndex < tables.size())
-            tables[tableIndex]->Delete(key);
-        else
-            cout << "Error: Table index out of range" << endl;
+    void DeleteElement(TKey key) {
+        for (auto table : tables) {
+            table->Delete(key);
+        }
     }
 
-    void ResetElement(int tableIndex) {
-        if (tableIndex >= 0 && tableIndex < tables.size())
-            tables[tableIndex]->Reset();
-        else
-            cout << "Error: Table index out of range" << endl;
+    void ResetAllTables() {
+        for (auto table : tables) {
+            table->Reset();
+        }
     }
 
-    // Найти элемент
-    void FindElement(int tableIndex, TKey key) 
-    {
-        if (tableIndex >= 0 && tableIndex < tables.size())
-            tables[tableIndex]->Find(key, value);
-        else
-            cout << "Error: Table index out of range" << endl;
+    void FindElement(TKey key) {
+        for (auto table : tables) {
+            TValue* value = table->Find(key);
+            if (value != nullptr) {
+                cout << "Элемент найден в таблице " << table << ": " << *value << endl;
+            }
+            else {
+                cout << "Элемент с ключом " << key << " не найден в таблице " << table << endl;
+            }
+        }
     }
 
-    void IsFullElement(int tableIndex) 
-    {
-        if (tableIndex >= 0 && tableIndex < tables.size())
-            if (tables[tableIndex]->IsFull() == 0)cout << "в таблице ещё есть место" << endl;
-            else cout << "таблица полная";
-        else
-            cout << "Error: Table index out of range" << endl;
+    void IsFullElement() {
+        for (auto table : tables) {
+            if (table->IsFull()) {
+                cout << "Таблица " << table << " заполнена." << endl;
+                return;
+            }
+        }
+        cout << "Все таблицы еще имеют свободное место." << endl;
     }
-    // Вывести содержимое указанной таблицы
+    void PrintAllTables() {
+        for (size_t i = 0; i < tables.size(); ++i) {
+            cout << "Таблица " << i << ":" << endl;
+            cout << *tables[i] << endl;
+        }
+    }
     void PrintTable(int tableIndex) {
         if (tableIndex >= 0 && tableIndex < tables.size()) {
             cout << "Подключение к таблице:" << endl;
@@ -72,10 +76,11 @@ public:
             cout << "Error: Table index out of range" << endl;
         }
     }
-
 };
 
 template <typename TKey, typename TValue>
 ostream& operator<<(ostream& os, const Base_Table<TKey, TValue>& table) {
     return table.Print(os);
 }
+
+

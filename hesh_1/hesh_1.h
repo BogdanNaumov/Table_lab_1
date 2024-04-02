@@ -19,7 +19,6 @@ private:
     int capacity;
 
     int Hash(const TKey& key) const {
-        // Простейшая хеш-функция, можно заменить на более сложную
         return key % capacity;
     }
 
@@ -39,7 +38,6 @@ public:
     }
 
     bool IsFull() const override {
-        // Хеш-таблица с пробированием не бывает полной
         return false;
     }
 
@@ -54,7 +52,6 @@ public:
 
             index = (index + 1) % capacity;
 
-            // Если вернулись в исходную позицию, значит, прошли по всей таблице
             if (index == startIndex) {
                 return nullptr;
             }
