@@ -10,6 +10,8 @@ set(listlib listlib)
 
 set(Base_Table Base_Table)
 
+set(TEST TEST)
+
 set(UnorderedTable_list UnorderedTable_list)
 
 set(Three_avl Three_avl)
@@ -40,19 +42,16 @@ add_subdirectory(gtest)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/listlib)
 add_subdirectory(listlib)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/polinomlib) #Добавляем директорию "${CMAKE_CURRENT_SOURCE_DIR}/vectorlib" в дополняемые каталоги включаемых файлов
-#${CMAKE_CURRENT_SOURCE_DIR} - стандартная переменная с адресом рабочей директории
-add_subdirectory(polinom) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/polinomlib) 
+add_subdirectory(polinom) 
 add_subdirectory(polinomlib)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/postfixlib) #Добавляем директорию "${CMAKE_CURRENT_SOURCE_DIR}/vectorlib" в дополняемые каталоги включаемых файлов
-#${CMAKE_CURRENT_SOURCE_DIR} - стандартная переменная с адресом рабочей директории
-add_subdirectory(postfix) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/postfixlib) 
+add_subdirectory(postfix)
 add_subdirectory(postfixlib)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/stacklib) #Добавляем директорию "${CMAKE_CURRENT_SOURCE_DIR}/vectorlib" в дополняемые каталоги включаемых файлов
-#${CMAKE_CURRENT_SOURCE_DIR} - стандартная переменная с адресом рабочей директории
-add_subdirectory(stack) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/stacklib) 
+add_subdirectory(stack) 
 add_subdirectory(stacklib)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/hesh_1)
@@ -79,12 +78,6 @@ add_subdirectory(UnorderedTable_arr)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/UnorderedTable_list)
 add_subdirectory(UnorderedTable_list)
 
-#file(GLOB hdrs "*.h*") #Добавляем в переменную hdrs все файлы с расширением .h
-#file(GLOB srcs "*.cpp") #Добавляем в переменную srcs все файлы с расширением .cpp
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/TEST)
+add_subdirectory(TEST)
 
-#include_directories(lib1)
-#add_executable(${PROJECT_NAME} ${srcs} ${hdrs}) #Создаем проект с именем из переменной ${PROJECT_NAME}, в него добавляются файлы из переменных ${srcs} и ${hdrs}
-
-
- #Собираем проект в поддиректории lib1
-#target_link_libraries(${PROJECT_NAME} ${MyLib1}) #Подключаем к проекту с именем ${PROJECT_NAME} библиотеку с именем ${MyLib1}
