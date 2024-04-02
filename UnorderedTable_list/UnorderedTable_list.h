@@ -1,84 +1,125 @@
 #pragma once
-#include <Base_Table.h>
-#include <iostream>
-//#include <locale>
-#include <string>
-
-using namespace std;
+#include "Base_Table.h" // Предполагаем, что этот файл в той же папке
+#include "TList.h" // Предполагаем, что этот файл в той же папке
+#include <iostream> // Добавляем этот заголовочный файл для использования std::ostream
+#include <utility> // Для std::pair
 
 template <typename TKey, typename TValue>
-class  UnorderedTable_mas : public Base_Table<TKey, TValue> {
+class Unordered_Table : public Base_Table<TKey, TValue> {
 private:
-    size_t index;
-    struct recording {
+    struct Node {
         TKey key;
-        TValue* value;
+        TValue value;
+        Node* next;
+
+        Node(const TKey& k, const TValue& v) : key(k), value(v), next(nullptr) {}
     };
-    vector<recording> data{};
 
-public:
-    size_t size() const noexcept { return data.size(); }
-    TValue& operator[](size_t pos) { return *data[pos].value; } 
-    UnorderedTable_mas() : index(0) { count = 0; }
+    Node* head;
+    int count; 
 
-    bool IsFull() const override {
-        if (count == TabMaxSize)
-            return true;
-        else
-            return false;
-    }
-
-    TValue* Find(TKey key) override {
-        for (auto& val : data)
-            if (val.key == key) return val.value;
+    Node* FindNode(TKey key) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->key == key)
+                return current;
+            current = current->next;
+        }
         return nullptr;
     }
 
+public:
+    Unordered_Table() : head(nullptr), count(0) {}
+
+    bool IsFull() const override {
+        return false; 
+    }
+
+    TValue* Find(TKey key) override {
+        Node* node = FindNode(key);
+        if (node != nullptr) {
+            return &(node->value);
+        }
+        else {
+            return nullptr;
+        }
+    }
+
     void Insert(TKey key, TValue value) override {
-        TValue* newValue = new TValue(value);
-        recording tab = { key, newValue };
-        data.push_back(tab);
-        this->count++;
+        Node* newNode = new Node(key, value);
+        if (head == nullptr) {
+            head = newNode;
+        }
+        else {
+            Node* current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+        count++;
     }
 
     void Delete(TKey key) override {
-        auto it = std::find_if(data.begin(), data.end(), [key](const recording& entry) { return entry.key == key; });
-        if (it != data.end()) { 
-            delete it->value; 
-            data.erase(it); 
-            count--;
-        }
-        else {
-            std::cout << "Element with key " << key << " not found." << std::endl;
+        Node* current = head;
+        Node* prev = nullptr;
+
+        while (current != nullptr) {
+            if (current->key == key) {
+                if (prev == nullptr) {
+                    head = current->next;
+                }
+                else {
+                    prev->next = current->next;
+                }
+                delete current;
+                count--;
+                return;
+            }
+            prev = current;
+            current = current->next;
         }
     }
 
     int Reset() override {
-        index = 0;
-        return index;
+        return (head != nullptr);
     }
 
-    int IsTabEnded() const override { return index >= data.size(); }
+    int IsTabEnded() const override {
+        return (head == nullptr);
+    }
 
     int GoNext() override {
-        index++;
-        return index;
+        return 0; 
     }
 
-    TKey GetKey() const override { return data[index].key; }
+    TKey GetKey() const override {
+        if (head == nullptr)
+            throw out_of_range("Table is empty");
+        return head->key;
+    }
 
-    TValue GetValuePtr() const override { return *data[index].value; }
+    TValue GetValuePtr() const override {
+        if (head == nullptr)
+            throw out_of_range("Table is empty");
+        return head->value;
+    }
 
     ostream& Print(ostream& os) const override {
-        os << "Не упорядоченная таблица на векторе:" << endl;
-        for (size_t i = 0; i < data.size(); ++i) {
-            os << " Ключ: " << data[i].key << " Значение: " << *data[i].value << endl;
+        Node* current = head;
+        os << "Неупорядоченная таблица на листе:" << endl;
+        while (current != nullptr) {
+            os << "Ключ: " << current->key << ", Значение: " << current->value << endl;
+            current = current->next;
         }
         return os;
     }
+
 };
 
+
+// Добавляем оператор << для удобства вывода
 template <typename TKey, typename TValue>
-ostream& operator<<(ostream& os, const UnorderedTable_mas<TKey, TValue>& table) {
+ostream& operator<<(ostream& os, const Unordered_Table<TKey, TValue>& table) {
     return table.Print(os);
 }

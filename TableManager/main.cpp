@@ -14,11 +14,13 @@ int main() {
     AVL_Tree<int, TPolinom> table3;
     ProbingHashTable<int, TPolinom>table4;
     ChainingHashTable<int, TPolinom>table5;
+    Unordered_Table<int, TPolinom>table6;
     manager.AddTable(&table1);
     manager.AddTable(&table2);
     manager.AddTable(&table3);
     manager.AddTable(&table4);
     manager.AddTable(&table5);
+    manager.AddTable(&table6);
 
     
     TPolinom p1, p2,p3,p4;
@@ -36,22 +38,21 @@ int main() {
     p3.AddMonom(b);
     p4.AddMonom(a);
     p4.AddMonom(e);
-    
-    for (int i = 0; i < 5; i++) 
-    {
-        manager.InsertElement(i, 2, p1);
-        manager.InsertElement(i, 2, p2);
-        manager.InsertElement(i, 3, p3);
-        manager.InsertElement(i, 4, p4);
-    }
-    
-
-    
-    manager.PrintTable(4);
-    manager.DeleteElement(4, 3);
-
-    manager.PrintTable(4);
-    manager.IsFullElement(4);
+    manager.InsertElement( 1, p1);
+    manager.InsertElement( 2, p2);
+    manager.InsertElement( 3, p3);
+    manager.PrintAllTables();
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    manager.InsertElement(4, p4);
+    manager.PrintAllTables();
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    manager.DeleteElement(3);
+    manager.PrintAllTables();
+    manager.IsFullElement();
 
 
     return 0;

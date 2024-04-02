@@ -29,47 +29,78 @@ public:
     }
 
     TValue* Find(TKey key) override {
-        for (auto& val : data)
-            if (val.key == key) return val.value;
+        size_t low = 0;
+        size_t high = data.size() - 1;
+
+        while (low <= high) {
+            size_t mid = low + (high - low) / 2;
+            if (data[mid].key == key) {
+                return data[mid].value;
+            }
+            else if (data[mid].key < key) {
+                low = mid + 1;
+            }
+            else {
+                high = mid - 1;
+            }
+        }
         return nullptr;
     }
 
     void Insert(TKey key, TValue value) override {
-        auto it = lower_bound(data.begin(), data.end(), key, [](const typename SortArrayTable::TabRec& entry, const TKey& searchKey) {
-                return entry.key < searchKey;
-            });
+        size_t low = 0;
+        size_t high = data.size();
+        while (low < high) {
+            size_t mid = low + (high - low) / 2;
+            if (data[mid].key < key) {
+                low = mid + 1;
+            }
+            else {
+                high = mid;
+            }
+        }
 
-        // Проверка наличия элемента с таким ключом
-        if (it != data.end() && it->key == key) {
-            cout << "Element with key " << key << " already exists." << endl;
+        if (low < data.size() && data[low].key == key) {
+            throw invalid_argument("Elements is already exist");
             return;
         }
 
-        // Вставка нового элемента
         TValue* newValue = new TValue(value);
-        data.insert(it, { key, newValue });
+        data.insert(data.begin() + low, { key, newValue });
         this->count++;
     }
-
+    
     bool IsFull() const override { return size() >= TabMaxSize; }
 
     void Delete(TKey key) override {
-        auto it = find_if(data.begin(), data.end(), [key](const TabRec& entry) { return entry.key == key; });
-        if (it != data.end()) {
-            // Удаление элемента из вектора
-            data.erase(it);
-
-            // Обновление индексов ключей
-            for (auto& entry : data) {
-                if (entry.key > key) {
-                    entry.key--; // Сдвиг ключей
-                }
+        size_t low = 0;
+        size_t high = data.size();
+        while (low < high) {
+            size_t mid = low + (high - low) / 2;
+            if (data[mid].key < key) {
+                low = mid + 1;
+            }
+            else {
+                high = mid;
             }
         }
+
+        if (low < data.size() && data[low].key == key) {
+            delete data[low].value;
+            data.erase(data.begin() + low);
+
+            for (size_t i = low; i < data.size(); ++i) {
+                if (data[i].key > key) {
+                    data[i].key--; 
+                }
+            }
+            this->count--;
+        }
         else {
-            cout << "Element with key " << key << " not found." << endl;
+            throw invalid_argument("Elements is not found");
         }
     }
+    
 
 
     int Reset() override {
