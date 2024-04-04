@@ -38,22 +38,63 @@ int main() {
     p3.AddMonom(b);
     p4.AddMonom(a);
     p4.AddMonom(e);
-    manager.InsertElement( 1, p1);
-    manager.InsertElement( 2, p2);
-    manager.InsertElement( 3, p3);
-    manager.PrintAllTables();
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    manager.InsertElement(4, p4);
-    manager.PrintAllTables();
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    manager.DeleteElement(3);
-    manager.PrintAllTables();
-    manager.IsFullElement();
 
+    int choice;
+    typedef int TKey; // Замените тип данных int на соответствующий тип ключа
+    typedef TPolinom TValue; // Замените TPolinom на соответствующий тип значения
+    TKey key;
+    TValue value;
+
+    do {
+        cout << "Выберите операцию:" << endl;
+        cout << "1. Добавить элемент" << endl;
+        cout << "2. Удалить элемент" << endl;
+        cout << "3. Сбросить все таблицы" << endl;
+        cout << "4. Найти элемент" << endl;
+        cout << "5. Проверить, заполнены ли таблицы полностью" << endl;
+        cout << "6. Вывести все таблицы" << endl;
+        cout << "7. Вывести конкретную таблицу" << endl;
+        cout << "0. Выйти из программы" << endl;
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Введите ключ и значение для добавления:" << endl;
+            cin >> key >> value;
+            manager.InsertElement(key, value);
+            break;
+        case 2:
+            cout << "Введите ключ для удаления элемента:" << endl;
+            cin >> key;
+            manager.DeleteElement(key);
+            break;
+        case 3:
+            manager.ResetAllTables();
+            break;
+        case 4:
+            cout << "Введите ключ для поиска:" << endl;
+            cin >> key;
+            manager.FindElement(key);
+            break;
+        case 5:
+            manager.IsFullElement();
+            break;
+        case 6:
+            manager.PrintAllTables();
+            break;
+        case 7:
+            int tableIndex;
+            cout << "Введите индекс таблицы для вывода:" << endl;
+            cin >> tableIndex;
+            manager.PrintTable(tableIndex);
+            break;
+        case 0:
+            cout << "Выход из программы." << endl;
+            break;
+        default:
+            cout << "Неверный выбор. Попробуйте еще раз." << endl;
+        }
+    } while (choice != 0);
 
     return 0;
 }

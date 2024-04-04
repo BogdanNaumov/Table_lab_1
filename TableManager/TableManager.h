@@ -68,8 +68,8 @@ public:
         }
     }
     void PrintTable(int tableIndex) {
+        cout << "Подключение к таблице:" << endl;
         if (tableIndex >= 0 && tableIndex < tables.size()) {
-            cout << "Подключение к таблице:" << endl;
             cout << *tables[tableIndex] << endl;
         }
         else {

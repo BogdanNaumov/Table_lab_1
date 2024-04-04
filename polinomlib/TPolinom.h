@@ -256,6 +256,21 @@ string TPolinom::ToString()
 	return result;
 }
 
+istream& operator>>(istream& is, TPolinom& polinom) {
+	int count;
+	is >> count;
+	int  co2, co3, co4;
+	float co1;
+	for (int i = 0; i < count; i++) {
+		is >> co1 >> co2 >> co3 >> co4;
+		TMonom m(co1, co2, co3, co4); // Создаем объект TMonom
+		polinom.AddMonom(m); // Добавляем моном в полином
+	}
+
+	return is;
+}
+
+
 ostream& operator<<(ostream& os, TPolinom& polinom)
 {
 	string result = "";
