@@ -64,22 +64,19 @@ public:
         int index = Hash(key);
         int startIndex = index;
 
-        // Ищем первый свободный или занятый элемент
         while (table[index] != nullptr && table[index]->occupied && table[index]->key != key) {
             index = (index + 1) % capacity;
 
-            // Если вернулись в исходную позицию, значит, прошли по всей таблице
             if (index == startIndex) {
                 throw runtime_error("Hash table is full.");
             }
         }
 
-        // Если нашли занятый элемент с нужным ключом, просто обновляем значение
         if (table[index] != nullptr && table[index]->occupied && table[index]->key == key) {
             table[index]->value = value;
         }
         else {
-            // Иначе создаем новый узел и записываем его в таблицу
+
             Node* newNode = new Node;
             newNode->key = key;
             newNode->value = value;
@@ -100,16 +97,13 @@ public:
             }
 
             index = (index + 1) % capacity;
-
-            // Если вернулись в исходную позицию, значит, прошли по всей таблице
             if (index == startIndex) {
-                return; // Элемент не найден
+                return; 
             }
         }
     }
 
     int IsTabEnded(void) const override {
-        // В хеш-таблице нет конца, так как мы можем продолжать добавлять элементы
         return false;
     }
 
@@ -118,7 +112,6 @@ public:
     }
 
     int Reset(void) override {
-        // Просто очищаем таблицу
         for (int i = 0; i < capacity; ++i) {
             if (table[i] != nullptr) {
                 delete table[i];
@@ -129,12 +122,10 @@ public:
     }
 
     TKey GetKey(void) const override {
-        // Метод не реализован, так как он не применим к данной структуре данных
         return TKey();
     }
 
     TValue GetValuePtr(void) const override {
-        // Метод не реализован, так как он не применим к данной структуре данных
         return TValue();
     }
 
@@ -142,14 +133,13 @@ public:
         os << "Probing Hash Table:" << endl;
         for (int i = 0; i < capacity; ++i) {
             if (table[i] != nullptr && table[i]->occupied) {
-                os << " Index: " << i << " Key: " << table[i]->key << " Value: " << table[i]->value << endl;
+                os << " Индекс: " << i << " Ключ: " << table[i]->key << " Значение: " << table[i]->value << endl;
             }
         }
         return os;
     }
 
     ~ProbingHashTable() {
-        // Освобождаем память, выделенную для узлов
         for (int i = 0; i < capacity; ++i) {
             if (table[i] != nullptr) {
                 delete table[i];

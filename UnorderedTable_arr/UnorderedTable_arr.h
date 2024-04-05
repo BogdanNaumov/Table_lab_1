@@ -1,7 +1,6 @@
 #pragma once
 #include <Base_Table.h>
 #include <iostream>
-//#include <locale>
 #include <string>
 
 using namespace std;
@@ -62,6 +61,10 @@ public:
     }
 
     int Reset() override {
+        for (auto& tab : data) {
+            delete tab.value;
+        }
+        data.clear();
         index = 0;
         return index;
     }

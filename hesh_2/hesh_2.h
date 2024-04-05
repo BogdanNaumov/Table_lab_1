@@ -18,7 +18,6 @@ private:
     int capacity;
 
     int Hash(const TKey& key) const {
-        // Простейшая хеш-функция, можно заменить на более сложную
         return key % capacity;
     }
 
@@ -38,7 +37,6 @@ public:
     }
 
     bool IsFull() const override {
-        // Хеш-таблица на основе цепочек не бывает полной
         return false;
     }
 
@@ -60,12 +58,10 @@ public:
         int index = Hash(key);
         Node* newNode = new Node(key, value);
 
-        // Если список для данного индекса пуст, просто вставляем новый узел
         if (table[index] == nullptr) {
             table[index] = newNode;
         }
         else {
-            // В противном случае добавляем новый узел в начало списка
             newNode->next = table[index];
             table[index] = newNode;
         }
@@ -93,7 +89,6 @@ public:
     }
 
     int IsTabEnded(void) const override {
-        // В хеш-таблице нет конца, так как мы можем продолжать добавлять элементы
         return false;
     }
     int GoNext(void) override
@@ -102,7 +97,6 @@ public:
     }
 
     int Reset(void) override {
-        // Очищаем таблицу и освобождаем память
         for (int i = 0; i < capacity; ++i) {
             Node* current = table[i];
             while (current != nullptr) {
@@ -111,18 +105,16 @@ public:
                 delete temp;
             }
             table[i] = nullptr;
-        }
-        delete[] table;
+        } 
         return 0;
     }
 
     TKey GetKey(void) const override {
-        // Метод не реализован, так как он не применим к данной структуре данных
         return TKey();
     }
 
     TValue GetValuePtr(void) const override {
-        // Метод не реализован, так как он не применим к данной структуре данных
+
         return TValue();
     }
 
@@ -131,7 +123,7 @@ public:
         for (int i = 0; i < capacity; ++i) {
             Node* current = table[i];
             while (current != nullptr) {
-                os << " Index: " << i << " Key: " << current->key << " Value: " << current->value << endl;
+                os << " Индекс: " << i << " Ключ: " << current->key << " Значение: " << current->value << endl;
                 current = current->next;
             }
         }
@@ -139,7 +131,6 @@ public:
     }
 
     ~ChainingHashTable() {
-        // Освобождаем память, выделенную под связанные списки
         Reset();
     }
 };

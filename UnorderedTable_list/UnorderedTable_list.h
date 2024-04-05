@@ -1,8 +1,8 @@
 #pragma once
-#include "Base_Table.h" // Предполагаем, что этот файл в той же папке
-#include "TList.h" // Предполагаем, что этот файл в той же папке
-#include <iostream> // Добавляем этот заголовочный файл для использования std::ostream
-#include <utility> // Для std::pair
+#include "Base_Table.h" 
+#include "TList.h" 
+#include <iostream> 
+#include <utility> 
 
 template <typename TKey, typename TValue>
 class Unordered_Table : public Base_Table<TKey, TValue> {
@@ -82,7 +82,15 @@ public:
     }
 
     int Reset() override {
-        return (head != nullptr);
+        Node* current = head;
+        while (current != nullptr) {
+            Node* temp = current;
+            current = current->next;
+            delete temp;
+        }
+        head = nullptr;
+        count = 0;
+        return 0; 
     }
 
     int IsTabEnded() const override {
