@@ -11,39 +11,19 @@ int main() {
    
     UnorderedTable_mas<int, TPolinom> table1;
     SortArrayTable<int, TPolinom> table2;
-    AVL_Tree<int, TPolinom> table3;
-    ProbingHashTable<int, TPolinom>table4;
-    ChainingHashTable<int, TPolinom>table5;
-    Unordered_Table<int, TPolinom>table6;
+    Unordered_Table<int, TPolinom>table3;
+    AVL_Tree<int, TPolinom> table4;
+    ProbingHashTable<int, TPolinom>table5;
+    ChainingHashTable<int, TPolinom>table6;
     manager.AddTable(&table1);
     manager.AddTable(&table2);
     manager.AddTable(&table3);
     manager.AddTable(&table4);
     manager.AddTable(&table5);
     manager.AddTable(&table6);
-
-    
-    TPolinom p1, p2,p3,p4;
-    TMonom a(3.22, 2, 2, 1);
-    TMonom b(2.5, 1, 3, 3);
-    TMonom c(3.4, 2, 4, 4);
-    TMonom d(4.22, 2, 2, 3);
-    TMonom e(2.5, 3, 7, 7);
-    p2.AddMonom(d);
-    p2.AddMonom(e);
-    p1.AddMonom(a);
-    p1.AddMonom(b);
-    p1.AddMonom(c);
-    p3.AddMonom(a);
-    p3.AddMonom(b);
-    p4.AddMonom(a);
-    p4.AddMonom(e);
-
     int choice;
-    typedef int TKey; // Замените тип данных int на соответствующий тип ключа
-    typedef TPolinom TValue; // Замените TPolinom на соответствующий тип значения
-    TKey key;
-    TValue value;
+    typedef int TKey; 
+    typedef TPolinom TValue;
 
     do {
         cout << "Выберите операцию:" << endl;
@@ -56,7 +36,8 @@ int main() {
         cout << "7. Вывести конкретную таблицу" << endl;
         cout << "0. Выйти из программы" << endl;
         cin >> choice;
-
+        TKey key;
+        TValue value;
         switch (choice) {
         case 1:
             cout << "Введите ключ и значение для добавления:" << endl;

@@ -104,6 +104,10 @@ public:
 
 
     int Reset() override {
+        for (auto& tab : data) {
+            delete tab.value;
+        }
+        data.clear(); 
         currentIndex = 0;
         return currentIndex;
     }

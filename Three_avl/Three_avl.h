@@ -215,6 +215,7 @@ public:
     }
 
     ostream& Print(ostream& os) const override {
+        os << "AVL дерево:" << endl;
         PrintInOrder(root, os);
         return os;
     }

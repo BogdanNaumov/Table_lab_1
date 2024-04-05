@@ -41,13 +41,13 @@ public:
     }
 
     void FindElement(TKey key) {
-        for (auto table : tables) {
-            TValue* value = table->Find(key);
+        for (size_t i = 0; i < tables.size(); ++i) {
+            TValue* value = tables[i]->Find(key);
             if (value != nullptr) {
-                cout << "Элемент найден в таблице " << table << ": " << *value << endl;
+                cout << "Элемент найден в таблице " << i << ": " << *value << endl;
             }
             else {
-                cout << "Элемент с ключом " << key << " не найден в таблице " << table << endl;
+                cout << "Элемент с ключом " << key << " не найден в таблице " << i << endl;
             }
         }
     }
