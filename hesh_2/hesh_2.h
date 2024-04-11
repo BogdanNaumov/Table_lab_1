@@ -22,7 +22,7 @@ private:
     }
 
 public:
-    ChainingHashTable() : capacity(100) {
+    ChainingHashTable() : capacity(100000) {
         table = new Node * [capacity];
         for (int i = 0; i < capacity; ++i) {
             table[i] = nullptr;

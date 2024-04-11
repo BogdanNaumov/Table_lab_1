@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <locale>
-#define TabMaxSize 100
+#define TabMaxSize 1000000
 
 #include <string>
 #include <vector>

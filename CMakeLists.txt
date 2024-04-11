@@ -20,6 +20,7 @@ set(postfix postfix)
 set(postfixlib postfixlib)
 set(stack stack)
 set(stacklib stacklib)
+set(experiment experiment)
 
 # Создаем переменную для типов сборки и устанавливаем значения Debug и Release.
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
@@ -49,6 +50,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/UnorderedTable_arr
     ${CMAKE_CURRENT_SOURCE_DIR}/UnorderedTable_list
     ${CMAKE_CURRENT_SOURCE_DIR}/TEST
+    ${CMAKE_CURRENT_SOURCE_DIR}/experiment
 )
 
 # Добавляем субдиректории для сборки остальных проектов.
@@ -68,3 +70,4 @@ add_subdirectory(Table_arr)
 add_subdirectory(UnorderedTable_arr)
 add_subdirectory(UnorderedTable_list)
 add_subdirectory(TEST)
+add_subdirectory(experiment)

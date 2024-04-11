@@ -13,7 +13,7 @@
 using namespace std;
 
 template <typename TKey, typename TValue>
-class TableManager {
+class Experiment {
 private:
     vector<Base_Table<TKey, TValue>*> tables;
 
@@ -22,15 +22,27 @@ public:
         tables.push_back(table);
     }
 
+    void InsertElement_1(TKey key, TValue value) {
+        for (size_t i = 0; i < tables.size(); i++) {
+            tables[i]->Insert(key, value);
+        }
+    }
+
     void InsertElement(TKey key, TValue value) {
         for (size_t i = 0; i < tables.size(); i++) {
-            tables[i]->Insert(key,value);
+            auto start = chrono::steady_clock::now();
+            tables[i]->Insert(key, value);
+            auto end = chrono::steady_clock::now();
+            cout << "Элемент вставлен в таблицу " << i << " за время " << chrono::duration<double, std::milli>(end - start).count() << endl;
         }
     }
 
     void DeleteElement(TKey key) {
-        for (size_t i = 0; i < tables.size();i++){
+        for (size_t i = 0; i < tables.size(); i++) {
+            auto start = chrono::steady_clock::now();
             tables[i]->Delete(key);
+            auto end = chrono::steady_clock::now();
+            cout << "Элемент удалён в таблице " << i << " за время " << chrono::duration<double, std::milli>(end - start).count()<< endl;
         }
     }
 
@@ -42,9 +54,11 @@ public:
 
     void FindElement(TKey key) {
         for (size_t i = 0; i < tables.size(); ++i) {
+            auto start = chrono::steady_clock::now();
             TValue* value = tables[i]->Find(key);
+            auto end = chrono::steady_clock::now();
             if (value != nullptr) {
-                cout << "Элемент найден в таблице " << i << ": " << *value << endl;
+                cout << "Элемент найден в таблице " << i <<" за время " << chrono::duration<double, std::milli>(end - start).count()<< endl;
             }
             else {
                 cout << "Элемент с ключом " << key << " не найден в таблице " << i << endl;
@@ -74,6 +88,22 @@ public:
         }
         else {
             cout << "Error: Table index out of range" << endl;
+        }
+    }
+    void InsertRandomValues(int numValues, int lowerBound, int upperBound) {
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<int> dis(lowerBound, upperBound);
+
+        for (auto table : tables) {
+            for (int i = 0; i < numValues; ++i) {
+                TKey key = i;
+                TPolinom tmp;
+                TMonom tmp_m(dis(gen), dis(gen), dis(gen), dis(gen));
+                tmp.AddMonom(tmp_m);
+                TValue value = tmp;
+                table->Insert(key, value);
+            }
         }
     }
 };

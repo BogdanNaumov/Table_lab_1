@@ -60,10 +60,10 @@ public:
             }
         }
 
-        if (low < data.size() && data[low].key == key) {
-            throw invalid_argument("Elements is already exist");
-            return;
-        }
+        //if (low < data.size() && data[low].key == key) {
+        //    throw invalid_argument("Elements is already exist");
+        //    return;
+        //}
 
         TValue* newValue = new TValue(value);
         data.insert(data.begin() + low, { key, newValue });

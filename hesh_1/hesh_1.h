@@ -23,7 +23,7 @@ private:
     }
 
 public:
-    ProbingHashTable() : capacity(10) {
+    ProbingHashTable() : capacity(100000) {
         table = new Node * [capacity];
         for (int i = 0; i < capacity; ++i) {
             table[i] = nullptr;
