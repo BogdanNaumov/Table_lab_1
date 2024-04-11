@@ -41,11 +41,15 @@ int main() {
         experiment.InsertElement_1(i,tmp);
     }
     //experiment.InsertRandomValues(3, 5, 10);
+    cout <<"____________________________________________"<<endl;
     experiment.FindElement(15000);
+    cout << "____________________________________________" << endl;
     experiment.DeleteElement(15000);
+    cout << "____________________________________________" << endl;
     TPolinom tmp;
     TMonom tmp_(30, 1, 1, 1);
     tmp.AddMonom(tmp_);
     experiment.InsertElement(15000, tmp);
+    cout << "____________________________________________" << endl;
     return 0;
 }
